@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>HOTEATS</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="
+{{ url_for('static', filename='favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='docs/examples/sticky-footer-navbar') }}" rel="stylesheet">
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ url_for('static', filename='assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>  
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    ::selection {
+        /*color: red;*/
+        background: #e74c3c;
+    }
+    p{
+      text-transform: uppercase;
+    }
+
+    li#name{
+      list-style-type: none;
+      font-family:"Helvetica";
+      font-size:15px;
+      font-weight: 900;
+    }
+    li#address{
+      list-style-type: none;
+      font-family:"Helvetica";
+      font-size:10px;
+      font-style: oblique;
+      /*font-weight: 900;*/
+    }
+    li#phone{
+      list-style-type: none;
+      font-family:"Helvetica";
+      font-size:10px;
+      /*font-style: italic;*/
+      /*font-weight: 900;*/
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #e74c3c;
+    }
+
+    a:active {
+        text-decoration: none;
+        color: #c0392b;
+    }
+
+    a#center{
+        margin: auto;
+        width: 60%;  
+        padding: 10px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+    <script>
+    function getSearchValue() {
+    var city = document.getElementById("mySearch").value;
+    var str1 = "https://api.locu.com/v1_0/venue/search/?locality=";
+    var str2 = "&category=restaurant&api_key=";
+    var apiKey = "dad8814e20be289b1b53b60ca73c7e3735574370";
+    var URL = str1.concat(city).concat(str2).concat(apiKey);
+    //document.getElementById("demo").innerHTML = URL;
+
+
+    $( document ).ready(function() {
+    $.ajax({
+      url: URL,
+      crossDomain: true,
+        dataType: 'jsonp',
+    }).done(function(res) {
+      console.log(res.objects)
+      for(i=0;i<res.objects.length;i++) {
+        //x = res.objects[i].name
+        //console.log(x)
+        //document.getElementById("demo").innerHTML = res.objects[i].name + "<br>" 
+        $("p").append("<li id='name'>" + res.objects[i].name + "</li>")
+        $("p").append("<li id='address'>" + res.objects[i].street_address + ", " + res.objects[i].locality + ", " + res.objects[i].region +"</li>")
+        $("p").append("<li id='phone'>" + res.objects[i].phone + "</li><br>")
+
+
+      }
+    });
+
+})
+
+
+
+}
+    </script>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <!--<div class="inner">
+              <h3 class="masthead-brand">Cover</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </nav>
+            </div>-->
+          </div>
+
+          <div class="inner cover">
+            <h3 class="cover-heading">FIND POPULAR RESTAURANTS IN YOUR CITY</h3>
+          <div class="input-group">
+                <input id="mySearch" type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn ">
+                  <!--<button href="google.com" class="btn btn-default" type="button">GO</button>-->
+                  <a class="btn btn-default" onClick="getSearchValue();" type="button">GO</a>
+                </span>
+              </div>
+            <!--<p class="lead">
+              <a href="#" class="btn btn-lg btn-default">GO</a>
+            </p>-->
+          </div>
+          <p id="demo"> <br><br> </p>
+
+
+        
+
+          <!--<div class="mastfoot">
+            <div class="inner">
+
+              <p><a href="https://github.com/montysingh">@montysingh</a></p>
+            </div>
+          </div>-->
+
+        </div>
+  <footer class="footer">
+            <div class="container">
+              <a href="https://github.com/montysingh" id="center" class="text-muted">@montysingh</a>
+            </div>
+          </footer>
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='assets/js/vendor/jquery.min.js') }}"><\/script>')</script>
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static', filename='assets/js/ie10-viewport-bug-workaround.js') }}"></script>
+  </body>
+</html>
