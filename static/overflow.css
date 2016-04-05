@@ -1,0 +1,41 @@
+::selection {
+    /*color: red;*/
+    background: #e74c3c;
+}
+p{
+  text-transform: uppercase;
+}
+
+li#name{
+  list-style-type: none;
+  font-family:"Helvetica";
+  font-size:15px;
+  font-weight: 900;
+}
+li#address{
+  list-style-type: none;
+  font-family:"Helvetica";
+  font-size:10px;
+  font-style: oblique;
+}
+li#phone{
+  list-style-type: none;
+  font-family:"Helvetica";
+  font-size:10px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #e74c3c;
+}
+
+a:active {
+    text-decoration: none;
+    color: #c0392b;
+}
+
+a#center{
+    margin: auto;
+    width: 60%;  
+    padding: 10px;
+}
